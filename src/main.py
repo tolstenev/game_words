@@ -27,30 +27,34 @@ Player 1 type the word "cat". Player 2 should
 type the word starting with 't'.
 Player 2 type the word "tea". Player 1 shold
 type the word starting witn 'a' etc.
+
+If you don't know the word or
+you want to stop the game enter "idk" 
 """
 print(rules)
 
-print("Ok, let's start!")
+print("Start the game!\n")
 
-word_p1 = str(input("Player 1, enter the word: "))
-word_p2 = str(input("Player 2, enter the word: "))
+word_1 = str(input("Player 1, enter the word: "))
 
-while True:
-    if word_p2 == "idk":
-        print("Congratulate Player 1! You are win!")
-        break
-    if word_p2[0] != word_p1[-1]:
-        print("Player 2, your word must start with last letter "
-              "of player's 1 word")
-        word_p2 = str(input("Player 2, enter the word: "))
-        continue
-    word_p1 = str(input("Player 1, enter the word: "))
-    if word_p1 == "idk":
-        print("Congratulate Player 2! You are win!")
-        break
-    while word_p1[0] != word_p2[-1]:
-        print("Player 1, your word must start with last letter "
-              "of player's 2 word")
-        word_p1 = str(input("Player 1, enter the word: "))
-        continue
-    word_p2 = str(input("Player 2, enter the word: "))
+if word_1 == "idk":
+    print("Exiting the game...")
+else:
+    word_2 = str(input("Player 2, enter the word: "))
+    while True:
+        if word_2 == "idk":
+            print("\nCongratulate Player 1! You are win!")
+            break
+        if word_2[0] != word_1[-1]:
+            print("Player 2, your word must start with", word_1[-1])
+            word_2 = str(input("Player 2: "))
+            continue
+        word_1 = str(input("Player 1: "))
+        if word_1 == "idk":
+            print("Congratulate Player 2! You are win!")
+            break
+        while word_1[0] != word_2[-1]:
+            print("\nPlayer 1, your word must start with", word_2[-1])
+            word_1 = str(input("Player 1: "))
+            continue
+        word_2 = str(input("Player 2: "))
