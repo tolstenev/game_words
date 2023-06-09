@@ -17,8 +17,22 @@
 # An ordinary game in which you need to say words starting with the last letter
 # of the previous word.
 
-word_p1 = str(input("Player 1, enter the word: "))
-word_p2 = str(input("Player 2, enter the word: "))
+rules = """                "Words"
+This game for two players. An ordinary game
+in which you need to say words starting with
+the last letter of the previous word.
+ 
+Example:
+Player 1 type the word "cat". Player 2 should
+type the word starting with 't'.
+Player 2 type the word "tea". Player 1 shold
+type the word starting witn 'a' etc.
+"""
+print(rules)
+
+print("Ok, let's start!")
+
+
 while True:
     if word_p2 == "idk":
         print("Congratulate Player 1! You are win!")
