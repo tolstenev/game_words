@@ -19,9 +19,15 @@
 
 word_p1 = str(input("Player 1, enter the word: "))
 word_p2 = str(input("Player 2, enter the word: "))
-if word_p2[0] != word_p1[-1]:
-    print("Player 2, your word must start with last letter of player's 1 word")
+while True:
+    while word_p2[0] != word_p1[-1]:
+        print("Player 2, your word must start with last letter "
+              "of player's 1 word")
+        word_p2 = str(input("Player 2, enter the word: "))
+    word_p1 = str(input("Player 1, enter the word: "))
+    while word_p1[0] != word_p2[-1]:
+        print("Player 1, your word must start with last letter "
+              "of player's 2 word")
+        word_p1 = str(input("Player 1, enter the word: "))
     word_p2 = str(input("Player 2, enter the word: "))
-else:
-    print("It's okay, keep going")
 
