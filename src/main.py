@@ -46,13 +46,15 @@ def get_name():
 
 
 def get_word_from(player_name):
-    word = str(input(f"{player_name}, enter the word: "))
-    while len(word.split()) != 1:
-        print("Please enter one word.")
+    while True:
         word = str(input(f"{player_name}, enter the word: "))
-    while not word.isalpha():
-        print("The word must contain only alphabetic letters.")
-        word = str(input(f"{player_name}, enter the word: "))
+        if len(word.split()) != 1:
+            print("Please enter one word.")
+            continue
+        if not word.isalpha():
+            print("The word must contain only alphabetic letters.")
+            continue
+        break
     word = word.strip().lower()
     return word
 
