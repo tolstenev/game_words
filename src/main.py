@@ -65,7 +65,7 @@ def twist(player_name, opponent_name, opponent_score,
         word = get_word_from(player_name)
         if word == stop_word:
             print(f"\nCongratulate {opponent_name}!",
-                  f"You are win with score {opponent_score}!")
+                  f"You are win with score {opponent_score}!\n")
             return "code_win"
         if word[0] != previous_word[-1]:
             print(f"{player_name}, your word must start with",
@@ -80,37 +80,52 @@ def twist(player_name, opponent_name, opponent_score,
     return word
 
 
-print("Player 1 enter your name: ", end='')
-player_1 = get_name()
-print(f"Hello, {player_1}!")
+def play_game(player_1, player_2, score_1, score_2, stop_word, used_words):
+    print(f"\n{player_1} and {player_2} start the game!\n")
+    word_1 = get_word_from(player_1)
+    used_words.append(word_1)
+    score_1 += 1
+    if word_1 == stop_word:
+        print("Exiting the game...")
+    else:
+        while True:
+            word_2 = twist(player_2, player_1, score_1,
+                           word_1, stop_word, used_words)
+            if word_2 == "code_win":
+                break
+            used_words.append(word_2)
+            score_2 += 1
+            word_1 = twist(player_1, player_2, score_2,
+                           word_2, stop_word, used_words)
+            if word_1 == "code_win":
+                break
+            used_words.append(word_1)
+            score_1 += 1
 
-print("Player 2 enter your name: ", end='')
-player_2 = get_name()
-print(f"Hello to you too, {player_2}!")
 
-print(f"\n{player_1} and {player_2} start the game!\n")
+def get_players_name():
+    print("Player 1 enter your name: ", end='')
+    player_1 = get_name()
+    print(f"Hello, {player_1}!")
+    print("Player 2 enter your name: ", end='')
+    player_2 = get_name()
+    print(f"Hello to you too, {player_2}!")
+    return [player_1, player_2]
+
 
 stop_word = "idk"
 used_words = []
 score_1 = 0
 score_2 = 0
-word_1 = get_word_from(player_1)
-used_words.append(word_1)
-score_1 += 1
+players = get_players_name()
+player_1 = players[0]
+player_2 = players[1]
 
-if word_1 == stop_word:
-    print("Exiting the game...")
-else:
-    while True:
-        word_2 = twist(player_2, player_1, score_1,
-                       word_1, stop_word, used_words)
-        if word_2 == "code_win":
-            break
-        used_words.append(word_2)
-        score_2 += 1
-        word_1 = twist(player_1, player_2, score_2,
-                       word_2, stop_word, used_words)
-        if word_1 == "code_win":
-            break
-        used_words.append(word_1)
-        score_1 += 1
+while True:
+    play_game(player_1, player_2, score_1, score_2, stop_word, used_words)
+    answer = input("Do you want play one more time? [yes/no]: ")
+    if answer in ["yes", "Yes", "YES", "y", "Y"]:
+        continue
+    else:
+        print("Exiting the game...")
+        break
