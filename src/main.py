@@ -33,28 +33,33 @@ you want to stop the game enter "idk"
 """
 print(rules)
 
-print("Start the game!\n")
+name_1 = str(input("Player 1 enter your name: ")).capitalize()
+print(f"Hello, {name_1}!")
+name_2 = str(input("Player 2 enter your name: ")).capitalize()
+print(f"Hello to you too, {name_2}!")
 
-word_1 = str(input("Player 1, enter the word: "))
+print(f"\n{name_1} and {name_2} start the game!\n")
+
+word_1 = str(input(f"{name_1}, enter the word: "))
 
 if word_1 == "idk":
     print("Exiting the game...")
 else:
-    word_2 = str(input("Player 2, enter the word: "))
+    word_2 = str(input(f"{name_2}, enter the word: "))
     while True:
         if word_2 == "idk":
-            print("\nCongratulate Player 1! You are win!")
+            print(f"\nCongratulate {name_1}! You are win!")
             break
         if word_2[0] != word_1[-1]:
-            print("Player 2, your word must start with", word_1[-1])
-            word_2 = str(input("Player 2: "))
+            print(f"{name_2}, your word must start with '{word_1[-1]}'")
+            word_2 = str(input(f"{name_2}: "))
             continue
-        word_1 = str(input("Player 1: "))
+        word_1 = str(input(f"{name_1}: "))
         if word_1 == "idk":
-            print("Congratulate Player 2! You are win!")
+            print(f"\nCongratulate {name_2}! You are win!")
             break
         while word_1[0] != word_2[-1]:
-            print("\nPlayer 1, your word must start with", word_2[-1])
-            word_1 = str(input("Player 1: "))
+            print(f"{name_1}, your word must start with '{word_2[-1]}'")
+            word_1 = str(input(f"{name_1}: "))
             continue
-        word_2 = str(input("Player 2: "))
+        word_2 = str(input(f"{name_2}: "))
