@@ -17,6 +17,24 @@
 # An ordinary game in which you need to say words starting with the last letter
 # of the previous word.
 
+def word_from_player(player_name, opponent_name, opponent_score,
+                     previous_word, stop_word, used_words):
+    while True:
+        word = str(input(f"{player_name}: "))
+        if word == stop_word:
+            print(f"\nCongratulate {opponent_name}! You are win with score {opponent_score}!")
+            return "code_win"
+        if word[0] != previous_word[-1]:
+            print(f"{player_name}, your word must start with '{previous_word[-1]}'")
+            continue
+        else:
+            if word in used_words:
+                print(f"{player_name}, the \"{word}\" was used. Enter another word.")
+                continue
+            break
+    return word
+
+
 rules = """                "Words"
 This game for two players. An ordinary game
 in which you need to say words starting with
@@ -29,7 +47,7 @@ Player 2 type the word "tea". Player 1 shold
 type the word starting witn 'a' etc.
 
 If you don't know the word or
-you want to stop the game enter "idk" 
+you want to stop the game enter stop_word 
 """
 print(rules)
 
@@ -40,39 +58,28 @@ print(f"Hello to you too, {name_2}!")
 
 print(f"\n{name_1} and {name_2} start the game!\n")
 
+stop_word = "idk"
+used_words = []
 score_1 = 0
+score_2 = 0
 word_1 = str(input(f"{name_1}, enter the word: "))
+used_words.append(word_1)
 score_1 += 1
 
-if word_1 == "idk":
+if word_1 == stop_word:
     print("Exiting the game...")
 else:
-    score_2 = 0
-    word_2 = str(input(f"{name_2}, enter the word: "))
     while True:
-        if word_2 == "idk":
-            print(f"\nCongratulate {name_1}! You are win with score {score_1}!")
+        word_2 = word_from_player(name_2, name_1, score_1,
+                                  word_1, stop_word, used_words)
+        if word_2 == "code_win":
             break
-        if word_2[0] != word_1[-1]:
-            print(f"{name_2}, your word must start with '{word_1[-1]}'")
-            word_2 = str(input(f"{name_2}: "))
-            continue
+        used_words.append(word_2)
         score_2 += 1
-        word_1 = str(input(f"{name_1}: "))
-        if word_1 == "idk":
-            print(f"\nCongratulate {name_2}! You are win with score {score_2}!")
+        word_1 = word_from_player(name_1, name_2, score_2,
+                                  word_2, stop_word, used_words)
+        if word_1 == "code_win":
             break
-        while word_1[0] != word_2[-1]:
-            print(f"{name_1}, your word must start with '{word_2[-1]}'")
-            word_1 = str(input(f"{name_1}: "))
-            if word_1 == "idk":
-                break
-            continue
-        if word_1 == "idk":
-            print(f"\nCongratulate {name_2}! You are win with score {score_2}!")
-            break
+        used_words.append(word_1)
         score_1 += 1
-        word_2 = str(input(f"{name_2}: "))
-
-
 
