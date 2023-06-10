@@ -40,26 +40,39 @@ print(f"Hello to you too, {name_2}!")
 
 print(f"\n{name_1} and {name_2} start the game!\n")
 
+score_1 = 0
 word_1 = str(input(f"{name_1}, enter the word: "))
+score_1 += 1
 
 if word_1 == "idk":
     print("Exiting the game...")
 else:
+    score_2 = 0
     word_2 = str(input(f"{name_2}, enter the word: "))
     while True:
         if word_2 == "idk":
-            print(f"\nCongratulate {name_1}! You are win!")
+            print(f"\nCongratulate {name_1}! You are win with score {score_1}!")
             break
         if word_2[0] != word_1[-1]:
             print(f"{name_2}, your word must start with '{word_1[-1]}'")
             word_2 = str(input(f"{name_2}: "))
             continue
+        score_2 += 1
         word_1 = str(input(f"{name_1}: "))
         if word_1 == "idk":
-            print(f"\nCongratulate {name_2}! You are win!")
+            print(f"\nCongratulate {name_2}! You are win with score {score_2}!")
             break
         while word_1[0] != word_2[-1]:
             print(f"{name_1}, your word must start with '{word_2[-1]}'")
             word_1 = str(input(f"{name_1}: "))
+            if word_1 == "idk":
+                break
             continue
+        if word_1 == "idk":
+            print(f"\nCongratulate {name_2}! You are win with score {score_2}!")
+            break
+        score_1 += 1
         word_2 = str(input(f"{name_2}: "))
+
+
+
