@@ -18,18 +18,19 @@
 # last letter of the previous word.
 
 rules = """                "Words"
-This game for two players. An ordinary game
-in which you need to say words starting with
+This game is for two players. In this game
+you need to say words starting with
 the last letter of the previous word.
+The words should not be repeated.
 
 Example:
-Player 1 type the word "cat". Player 2 should
+Player 1 types the word "cat". Player 2 should
 type the word starting with 't'.
-Player 2 type the word "tea". Player 1 should
+Player 2 types the word "tea". Player 1 should
 type the word starting with 'a' etc.
 
 If you don't know the word or
-you want to stop the game enter stop_word 
+you want to stop the game, enter "idk".
 """
 print(rules)
 
@@ -64,8 +65,8 @@ def twist(player_name, opponent_name, opponent_score,
     while True:
         word = get_word_from(player_name)
         if word == stop_word:
-            print(f"\nCongratulate {opponent_name}!",
-                  f"You are win with score {opponent_score}!\n")
+            print(f"\nCongratulations, {opponent_name}!",
+                  f"\nYour number of words: {opponent_score}\n")
             return "code_win"
         if word[0] != previous_word[-1]:
             print(f"{player_name}, your word must start with",
@@ -104,17 +105,17 @@ def play_game(player_1, player_2, score_1, score_2, stop_word, used_words):
 
 
 def get_players_name():
-    print("Player 1 enter your name: ", end='')
+    print("Player 1, enter your name: ", end='')
     player_1 = get_name()
     print(f"Hello, {player_1}!")
-    print("Player 2 enter your name: ", end='')
+    print("Player 2, enter your name: ", end='')
     player_2 = get_name()
-    print(f"Hello to you too, {player_2}!")
+    print(f"Hello, {player_2}!")
     return [player_1, player_2]
 
 
 stop_word = "idk"
-used_words = []
+used_words = list()
 score_1 = 0
 score_2 = 0
 players = get_players_name()
@@ -123,9 +124,9 @@ player_2 = players[1]
 
 while True:
     play_game(player_1, player_2, score_1, score_2, stop_word, used_words)
-    answer = input("Do you want play one more time? [yes/no]: ")
+    answer = input("Do you want to play one more time? [yes/no]: ")
     if answer in ["yes", "Yes", "YES", "y", "Y"]:
         continue
     else:
-        print("Exiting the game...")
+        print("Exit the game...")
         break
