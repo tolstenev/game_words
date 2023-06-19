@@ -62,22 +62,33 @@ def get_word_from(player_name):
 
 def twist(player_name, opponent_name, opponent_score,
           previous_word, stop_word, used_words):
+    if previous_word[-1] in ['ь', 'ъ', 'ы'] or \
+       previous_word[-1] in ['x']:\
+        necessary_letter = [previous_word[-1], previous_word[-2]]
+    else:
+        necessary_letter = [previous_word[-1]]
     while True:
         word = get_word_from(player_name)
         if word == stop_word:
             print(f"\nCongratulations, {opponent_name}!",
-                  f"\nYour number of words: {opponent_score}\n")
+                  f"\nThe number of your words: {opponent_score}\n")
             return "code_win"
-        if word[0] != previous_word[-1]:
+        if previous_word[-1] in ['ь', 'ъ', 'ы'] or \
+           previous_word[-1] in ['x']:  # Russian and English letter
+            if word[0] not in necessary_letter:
+                print(f"{player_name}, your word must start with",
+                      f"'{previous_word[-1]}' or"
+                      f"'{previous_word[-2]}'")
+                continue
+        elif word[0] != previous_word[-1]:
             print(f"{player_name}, your word must start with",
                   f"'{previous_word[-1]}'")
             continue
-        else:
-            if word in used_words:
-                print(f"{player_name}, the \"{word}\" was used.",
-                      "Enter another word.")
-                continue
-            break
+        if word in used_words:
+            print(f"{player_name}, the \"{word}\" was used.",
+                  "Enter another word.")
+            continue
+        break
     return word
 
 
