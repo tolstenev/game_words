@@ -18,9 +18,9 @@
 # last letter of the previous word.
 
 rules = """                "Words"
-This game is for two players. In this game
-you need to say words starting with
-the last letter of the previous word.
+This game is for two players.
+You need to type words starting with
+the last letter of the word by your opponent.
 The words should not be repeated.
 
 Example:
@@ -48,7 +48,8 @@ def get_name():
 
 def get_word_from(player_name):
     while True:
-        word = str(input(f"{player_name}, enter the word: "))
+        word = str(input(f"{player_name}: "))
+        word = word.strip().lower()
         if len(word.split()) != 1:
             print("Please enter one word.")
             continue
@@ -56,14 +57,13 @@ def get_word_from(player_name):
             print("The word must contain only alphabetic letters.")
             continue
         break
-    word = word.strip().lower()
     return word
 
 
 def twist(player_name, opponent_name, opponent_score,
           previous_word, stop_word, used_words):
     if previous_word[-1] in ['ь', 'ъ', 'ы'] or \
-       previous_word[-1] in ['x']:\
+       previous_word[-1] in ['x']:
         necessary_letter = [previous_word[-1], previous_word[-2]]
     else:
         necessary_letter = [previous_word[-1]]
@@ -77,7 +77,7 @@ def twist(player_name, opponent_name, opponent_score,
            previous_word[-1] in ['x']:  # Russian and English letter
             if word[0] not in necessary_letter:
                 print(f"{player_name}, your word must start with",
-                      f"'{previous_word[-1]}' or"
+                      f"'{previous_word[-1]}' or "
                       f"'{previous_word[-2]}'")
                 continue
         elif word[0] != previous_word[-1]:
@@ -92,7 +92,8 @@ def twist(player_name, opponent_name, opponent_score,
     return word
 
 
-def play_game(player_1, player_2, score_1, score_2, stop_word, used_words):
+def play_game(player_1, player_2, score_1, score_2, stop_word):
+    used_words = list()
     print(f"\n{player_1} and {player_2} start the game!\n")
     word_1 = get_word_from(player_1)
     used_words.append(word_1)
@@ -116,17 +117,16 @@ def play_game(player_1, player_2, score_1, score_2, stop_word, used_words):
 
 
 def get_players_name():
-    print("Player 1, enter your name: ", end='')
+    print("Player 1, enter your name: ", end="")
     player_1 = get_name()
     print(f"Hello, {player_1}!")
-    print("Player 2, enter your name: ", end='')
+    print("Player 2, enter your name: ", end="")
     player_2 = get_name()
     print(f"Hello, {player_2}!")
     return [player_1, player_2]
 
 
 stop_word = "idk"
-used_words = list()
 score_1 = 0
 score_2 = 0
 players = get_players_name()
@@ -134,7 +134,7 @@ player_1 = players[0]
 player_2 = players[1]
 
 while True:
-    play_game(player_1, player_2, score_1, score_2, stop_word, used_words)
+    play_game(player_1, player_2, score_1, score_2, stop_word)
     answer = input("Do you want to play one more time? [yes/no]: ")
     if answer in ["yes", "Yes", "YES", "y", "Y"]:
         continue
